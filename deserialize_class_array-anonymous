@@ -1,0 +1,3 @@
+String input = '[{"name":"paulo","age":42, "car" : {"model" : "outlander", "year" : "2016"}}, {"name":"tin","age":40, "car" : {"model" : "crv", "year" : "2004"}}]';
+List<getperson> person = (List</getperson><getperson>) JSON.deserialize(input, List</getperson><getperson>.class);
+system.assertEquals(person.size(), 2);

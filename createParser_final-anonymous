@@ -1,0 +1,5 @@
+String input = '[{"_id":"1","name":"paulo","age":42, "car" : {"model" : "outlander", "year" : "2016"}, "kids" : ["penny", "padma", "amber", "pauline"]}, {"_id":"2","name":"tin","age":40, "car" : {"model" : "crv", "year" : "2004"},"kids" : ["mary", "sophie", "patrice", "laeticia"]}]';
+
+List<getperson> gpList = GetPerson.parse(input);
+
+system.debug(gpList);

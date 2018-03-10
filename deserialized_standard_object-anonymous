@@ -1,0 +1,4 @@
+String input = '{"name":"paulo","age":42, "car" : {"model" : "outlander", "year" : "2016"}}';
+Account a = (Account) JSON.deserialize(input, Account.class);
+system.assertEquals(a.name, 'paulo');
+system.debug(a);

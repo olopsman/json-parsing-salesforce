@@ -1,0 +1,6 @@
+String input = '{"name":"paulo","age":42, "car" : {"model" : "outlander", "year" : "2016"}}';
+Map<String, Object> o = (Map<String, Object>) JSON.deserializeUntyped(input);
+system.assertEquals(o.get('name'), 'paulo');
+system.assertEquals(o.get('age'), 42);
+Map<String, Object> car = (Map<String, Object>) o.get('car');
+system.assertEquals(o.get('car'), 'outlander');

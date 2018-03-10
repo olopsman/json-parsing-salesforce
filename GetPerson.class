@@ -1,0 +1,62 @@
+Public class GetPerson {
+   public String x_id {get;set;}
+   public String name {get;set;}
+   public Integer age {get;set;}
+   public List<string> kids {get;set;}
+   public Car car {get;set;}
+
+   public class Car {
+        public String model {get;set;}
+        public String year {get;set;}
+   }
+
+   public static List<GetPerson> parse(String jsonInput) {
+    JSONParser parser = JSON.createParser(jsonInput);
+    List<GetPerson> gpList = new List<GetPerson>();
+    while(parser.nextToken() != JSONToken.END_ARRAY) { // we started with an array of objects
+        GetPerson gp = new GetPerson();
+        while(parser.nextToken() != JSONToken.END_OBJECT){ // loop through each object
+            if(parser.getCurrentToken() == JSONToken.FIELD_NAME) { //token should be field name
+                String attr = parser.getText(); //get the text of the field name
+                parser.nextToken(); // move the pointer
+                //start mapping the fields
+                if(attr == '_id') { 
+                    gp.x_id = parser.getText();
+                } else if(attr == 'name') {
+                    gp.name = parser.getText();
+                } else if(attr == 'age') {
+                    gp.age = parser.getIntegerValue();
+                } else if(attr == 'car') {
+                    //create instance of the inner class car
+                    GetPerson.Car gpcar = new GetPerson.Car();
+                    //this is new object - make another while to loop through       
+                    while(parser.nextToken() != JSONToken.END_OBJECT) {
+                        if(parser.getCurrentToken() == JSONToken.FIELD_NAME) {
+                            String carAttr = parser.getText();
+                            //move the pointer
+                            parser.nextToken();
+                            if(carAttr == 'model') {
+                                gpcar.model = parser.getText();
+                            } else if(carAttr == 'year') {
+                                gpcar.year = parser.getText();                  
+                                //finally assign the year assign the car    
+                                gp.car = gpcar;
+                            }
+                        }
+                    }        
+                } else if(attr == 'kids') { //this is array of values
+                    List<String> kids = new List<String>();
+                    //do another while
+                    while(parser.nextToken() != JSONToken.END_ARRAY) {
+                        kids.add(parser.getText());
+                    }
+                    gp.kids = kids;
+                }
+            }
+        }
+        gpList.add(gp);            
+    }
+    return gpList;   
+   }  
+
+}

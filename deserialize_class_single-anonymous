@@ -1,0 +1,4 @@
+String input = '{"name":"paulo","age":42, "married":true, "car" : {"model" : "outlander", "year" : "2016"}}';
+GetPerson person = (GetPerson) JSON.deserialize(input, GetPerson.class);
+system.assertEquals(person.name, 'paulo');
+system.assertEquals(person.car.model, 'outlander');
